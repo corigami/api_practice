@@ -1,0 +1,24 @@
+[
+    {
+        "_id": "628a9a28af8e944d467caa55",
+        "title": "article 1",
+        "content": "blah blah blah"
+    },
+    {
+        "_id": "628a9a73af8e944d467caa56",
+        "title": "article 2",
+        "content": "more blah blah blah"
+    },
+    {
+        "_id": "628aa0c9daf814299dac98ef",
+        "title": "article 3",
+        "content": "even more blah blah blah",
+        "__v": 0
+    },
+    {
+        "_id": "628aa16de952986ba1b4225c",
+        "title": "article 4",
+        "content": "even more .....blah blah blH",
+        "__v": 0
+    }
+]
