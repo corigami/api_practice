@@ -23,37 +23,36 @@ const DB_URI = "mongodb://localhost:" + DB_PORT + "/wiki";
 mongoose.connect(DB_URI);
 
 //create article  schema and model
-const articleSchema = new mongoose.Schema({title: String, content: String });
+const articleSchema = new mongoose.Schema({ title: String, content: String });
 const Article = mongoose.model("Article", articleSchema);
 
-app.get("/articles", (req, res)=>{
-    Article.find({}, (err, data)=>{
-        console.log(data);
-        if(!err){
-            res.send(data);
-        }else{
-            res.send(err);
-        }
-    });
-});
-
 app.route("/articles")
-.post((req, res)=>{
-    const new_art = new Article({title: req.body.title, content: req.body.content});
-    new_art.save()
-    .then(() => {         
-      res.send("Success!");  
+    .get((req, res) => {
+        Article.find({}, (err, data) => {
+            console.log(data);
+            if (!err) {
+                res.send(data);
+            } else {
+                res.send(err);
+            }
+        });
     })
-    .catch((err)=>{           //use Promise catch functionality
-      res.send(err);
-    });
-})
-.delete((req, res)=>{
-    Article.deleteMany({})
-    .then(()=>{
-        res.send("Deleted all articles");
+    .post((req, res) => {
+        const new_art = new Article({ title: req.body.title, content: req.body.content });
+        new_art.save()
+            .then(() => {
+                res.send("Success!");
+            })
+            .catch((err) => {           //use Promise catch functionality
+                res.send(err);
+            });
     })
-    .catch((err)=>{
-        res.send(err);
+    .delete((req, res) => {
+        Article.deleteMany({})
+            .then(() => {
+                res.send("Deleted all articles");
+            })
+            .catch((err) => {
+                res.send(err);
+            });
     });
-});
