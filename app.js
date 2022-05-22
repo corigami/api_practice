@@ -28,6 +28,7 @@ const Article = mongoose.model("Article", articleSchema);
 
 app.route("/articles")
     .get((req, res) => {
+        //find doesn't return a Promise...
         Article.find({}, (err, data) => {
             console.log(data);
             if (!err) {
@@ -54,5 +55,29 @@ app.route("/articles")
             })
             .catch((err) => {
                 res.send(err);
+            });
+    });
+
+app.route("/articles/:article_name")
+    .get((req, res) => {
+        Article.findOne({ title: req.params.article_name }, (err, data) => {
+            if (!err) {
+                res.send(data);
+            } else {
+                res.send(err);
+            }
+        });
+    })
+
+    .put((req, res) => {
+        Article.updateOne(
+            { title: req.params.article_name },           //get title from url
+            { title: req.body.title, content: req.body.content },         //update with new information,
+            (err, data) => {
+                if (!err) {
+                    res.send(data);
+                } else {
+                    res.send(err);
+                }
             });
     });
