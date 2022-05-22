@@ -37,7 +37,8 @@ app.get("/articles", (req, res)=>{
     });
 });
 
-app.post("/articles", (req, res)=>{
+app.route("/articles")
+.post((req, res)=>{
     const new_art = new Article({title: req.body.title, content: req.body.content});
     new_art.save()
     .then(() => {         
@@ -46,9 +47,8 @@ app.post("/articles", (req, res)=>{
     .catch((err)=>{           //use Promise catch functionality
       res.send(err);
     });
-});
-
-app.delete("/articles", (req, res)=>{
+})
+.delete((req, res)=>{
     Article.deleteMany({})
     .then(()=>{
         res.send("Deleted all articles");
