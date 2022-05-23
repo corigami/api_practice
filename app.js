@@ -75,9 +75,32 @@ app.route("/articles/:article_name")
             { title: req.body.title, content: req.body.content },         //update with new information,
             (err, data) => {
                 if (!err) {
-                    res.send(data);
+                    res.send("Update successful");
                 } else {
                     res.send(err);
                 }
+            });
+    })
+
+    .patch((req, res) => {
+        Article.updateOne(
+            { title: req.params.article_name },           //get title from url
+            { $set: req.body },         //update with new information,
+            (err, data) => {
+                if (!err) {
+                    res.send("Update successful");
+                } else {
+                    res.send(err);
+                }
+            });
+    })
+    
+    .delete((req, res) => {
+        Article.deleteOne({title: req.params.article_name})
+            .then(() => {
+                res.send("Deleted the article: " + req.params.article_name);
+            })
+            .catch((err) => {
+                res.send(err);
             });
     });
